@@ -17,4 +17,9 @@ public class Simulator {
         //find item in shelves with id
         return null;
     }
+
+    public Shelf findShelf(String itemId) {
+        //find shelf contain the item
+        return null;
+    }
 }
