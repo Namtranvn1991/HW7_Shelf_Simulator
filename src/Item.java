@@ -1,7 +1,7 @@
 public class Item {
     private String itemId;
     private Volume volume;
-    public Shelf shelf;
+    private Shelf shelf;
 
     public Item(String itemId, Volume volume) {
         this.itemId = itemId;
@@ -21,5 +21,13 @@ public class Item {
 
     public void setVolume(Volume volume) {
         this.volume = volume;
+    }
+
+    public Shelf getShelf() {
+        return shelf;
+    }
+
+    public void setShelf(Shelf shelf) {
+        this.shelf = shelf;
     }
 }

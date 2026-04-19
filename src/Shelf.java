@@ -6,23 +6,28 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
     public double remainingWidth;
     public double minimumWidth;
 
-    public Shelf(String id, Volume volume,  List<Item> items) {
+    public Shelf(String id, Volume volume, double minimumWidth) {
         super(id, volume);
         items = new ArrayList<Item>();
         this.remainingWidth = getVolume().getWidth();
-
+        this.minimumWidth = minimumWidth;
     }
 
-    public boolean addItem(Item item){
-        boolean canAdd = checkCanAddItem(item);
-        if (canAdd){
-            items.add(item);
-            remainingWidth -= item.getVolume().getWidth();
-            if (remainingWidth < minimumWidth){
-                setFull(true);
-            }
+    public Shelf addItem(Item item){
+        items.add(item);
+        item.setShelf(this);
+        remainingWidth -= item.getVolume().getWidth();
+        checkFull();
+        return this;
+    }
+
+    public void removeItem(Item item){
+        if (items.contains(item)){
+            items.remove(item);
+            item.setShelf(null);
+            remainingWidth += item.getVolume().getWidth();
+            checkFull();
         }
-        return canAdd;
     }
 
 
@@ -36,6 +41,14 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
         return false;
     }
 
+    public void checkFull(){
+        if (remainingWidth <= minimumWidth){
+            setFull(true);
+        } else
+        {
+            setFull(false);
+        }
+    }
 
     @Override
     public int compareTo(Shelf o) {
