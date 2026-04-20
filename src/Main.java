@@ -1,3 +1,3 @@
 void main() {
-    //conflict test
+    System.out.print("Hello, world!");
 }
