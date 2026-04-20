@@ -6,24 +6,11 @@ public class Simulator {
 
     public void addShelf(Shelf shelf) {
         Storage.allShelves.add(shelf);
+        Storage.availableShelves.add(shelf);
     }
-
-
-    //find shelf can add then add into the shelf
-    public Shelf addItem(Item item) {
-        Storage.items.add(item);
-        for (Shelf shelf : Storage.availableShelves) {
-            if (shelf.checkCanAddItem(item)) {
-                shelf.addItem(item);
-                return shelf;
-            }
-        }
-        return null;
-    }
-
 
     // add item into available Shelf and update availableShelves
-    public static Shelf add(Item item) {
+    public Shelf addItem(Item item) {
         List<Shelf> temp = new ArrayList<>();
 
         while (!Storage.availableShelves.isEmpty()) {
@@ -46,7 +33,7 @@ public class Simulator {
     }
 
     // remove item and update availableShelves
-    public static Shelf remove(Item item) {
+    public Shelf removeItem(Item item) {
         Shelf shelf = item.getShelf();
 
         if (shelf == null) return null;
