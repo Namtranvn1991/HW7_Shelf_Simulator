@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a shelf that can store items.
+ * Manages capacity based on width and dimensions.
+ */
+
 public class Shelf extends StorageUnit implements Comparable<Shelf> {
     public List<Item> items;
     public double remainingWidth;
@@ -13,6 +18,12 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
         this.minimumWidth = minimumWidth;
     }
 
+    /**
+     * Adds an item to the shelf and updates remaining width.
+     *
+     * @param item item to add
+     * @return this shelf after adding item
+     */
     public Shelf addItem(Item item){
         items.add(item);
         item.setShelf(this);
@@ -21,6 +32,11 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
         return this;
     }
 
+    /**
+     * Removes an item from the shelf and restores remaining width.
+     *
+     * @param item item to remove
+     */
     public void removeItem(Item item){
         if (items.contains(item)){
             items.remove(item);
@@ -30,6 +46,15 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
         }
     }
 
+    /**
+     * Checks if an item can be placed in this shelf.
+     * Conditions:
+     * - Item must fit in height and depth
+     * - Item width must not exceed remaining width
+     *
+     * @param item item to be checked
+     * @return true if item can be stored, false otherwise
+     */
 
     public boolean checkCanAddItem(Item item){
         if (isFull()) return false;
