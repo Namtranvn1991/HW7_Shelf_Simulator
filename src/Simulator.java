@@ -63,4 +63,25 @@ public class Simulator {
         Item item = findItem(itemId);
         return item.getShelf();
     }
+
+    public void displayAllShelves() {
+        for (Shelf shelf : Storage.allShelves) {
+            shelf.displayShelfInfo();
+            System.out.println();
+        }
+    }
+
+    public void displayAllItems() {
+        for (Item item : Storage.items) {
+            System.out.println("Item ID: " + item.getItemId());
+
+            if (item.getShelf() != null) {
+                System.out.println("Stored in shelf: " + item.getShelf().getId());
+            } else {
+                System.out.println("Not stored");
+            }
+
+            System.out.println();
+        }
+    }
 }
