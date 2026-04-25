@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Simulation controller.
+ * Handles adding/removing items and managing shelves.
+ */
+
 public class Simulator {
     public Storage storage;
 
@@ -10,6 +15,13 @@ public class Simulator {
     }
 
     // add item into available Shelf and update availableShelves
+    /**
+     * Attempts to place an item into an available shelf.
+     * Uses priority queue to select best shelf.
+     *
+     * @param item item to add
+     * @return shelf where item was placed, null if failed
+     */
     public Shelf addItem(Item item) {
         List<Shelf> temp = new ArrayList<>();
 
@@ -63,5 +75,26 @@ public class Simulator {
         Item item = findItem(itemId);
         if (item == null) return null;
         return item.getShelf();
+    }
+
+    public void displayAllShelves() {
+        for (Shelf shelf : Storage.allShelves) {
+            shelf.displayShelfInfo();
+            System.out.println();
+        }
+    }
+
+    public void displayAllItems() {
+        for (Item item : Storage.items) {
+            System.out.println("Item ID: " + item.getItemId());
+
+            if (item.getShelf() != null) {
+                System.out.println("Stored in shelf: " + item.getShelf().getId());
+            } else {
+                System.out.println("Not stored");
+            }
+
+            System.out.println();
+        }
     }
 }

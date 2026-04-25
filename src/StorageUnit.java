@@ -1,3 +1,7 @@
+/**
+ * Abstract class representing a storage unit.
+ * Parent class for Shelf.
+ */
 public abstract class  StorageUnit {
     private String id;
     private Volume volume;

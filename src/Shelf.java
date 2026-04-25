@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a shelf that can store items.
+ * Manages capacity based on width and dimensions.
+ */
+
 public class Shelf extends StorageUnit implements Comparable<Shelf> {
     public List<Item> items;
     public double remainingWidth;
@@ -13,6 +18,12 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
         this.minimumWidth = minimumWidth;
     }
 
+    /**
+     * Adds an item to the shelf and updates remaining width.
+     *
+     * @param item item to add
+     * @return this shelf after adding item
+     */
     public Shelf addItem(Item item){
         items.add(item);
         item.setShelf(this);
@@ -21,6 +32,11 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
         return this;
     }
 
+    /**
+     * Removes an item from the shelf and restores remaining width.
+     *
+     * @param item item to remove
+     */
     public void removeItem(Item item){
         if (items.contains(item)){
             items.remove(item);
@@ -30,15 +46,24 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
         }
     }
 
+    /**
+     * Checks if an item can be placed in this shelf.
+     * Conditions:
+     * - Item must fit in height and depth
+     * - Item width must not exceed remaining width
+     *
+     * @param item item to be checked
+     * @return true if item can be stored, false otherwise
+     */
 
     public boolean checkCanAddItem(Item item){
         if (isFull()) return false;
-        if (item.getVolume().getHeight() >= this.getVolume().getHeight()) return false;
-        if (item.getVolume().getDepth() >= this.getVolume().getDepth()) return false;
-        if (remainingWidth > item.getVolume().getWidth()){
-            return true;
+        if (item.getVolume().getHeight() > this.getVolume().getHeight()) return false;
+        if (item.getVolume().getDepth() > this.getVolume().getDepth()) return false;
+        if (item.getVolume().getWidth() > remainingWidth) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     public void checkFull(){
@@ -52,8 +77,25 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
 
     @Override
     public int compareTo(Shelf o) {
-        if (remainingWidth < o.remainingWidth) return -1;
-        if (remainingWidth > o.remainingWidth) return 1;
-        return 0;
+        return Double.compare(o.remainingWidth, this.remainingWidth);
+    }
+
+    public double getUsedWidth() {
+        return getVolume().getWidth() - remainingWidth;
+    }
+
+    public double getUtilizationRate() {
+        return getUsedWidth() / getVolume().getWidth();
+    }
+
+    public int getItemCount() {
+        return items.size();
+    }
+
+    public void displayShelfInfo() {
+        System.out.println("Shelf ID: " + getId());
+        System.out.println("Remaining width: " + remainingWidth);
+        System.out.println("Item count: " + items.size());
+        System.out.println("Utilization rate: " + getUtilizationRate());
     }
 }
