@@ -61,6 +61,7 @@ public class Simulator {
 
     public Shelf findShelf(String itemId) {
         Item item = findItem(itemId);
+        if (item == null) return null;
         return item.getShelf();
     }
 
