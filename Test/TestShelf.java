@@ -4,17 +4,6 @@ import static org.junit.Assert.*;
 import java.util.*;
 
 public class TestShelf {
-
-
-
-    @BeforeEach
-    void setUp() {
-        Volume shelfVolume = new Volume(100, 200, 50); // width, height, depth
-        Shelf shelf = new Shelf("S1", shelfVolume, 10);
-        Volume itemVolume = new Volume(20, 30, 30);
-        Item item = new Item("I1", itemVolume);
-    }
-
     @Test
     public void testInitialization() {
         Volume shelfVolume = new Volume(100, 200, 50); // width, height, depth
