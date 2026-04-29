@@ -48,19 +48,11 @@ Main controller that manages operations such as:
 - Adding/removing items
 - Searching items
 
-📄 See: :contentReference[oaicite:0]{index=0}
-
----
-
 #### Storage
 Global storage manager that keeps:
 - All shelves
 - Available shelves (PriorityQueue)
 - All items
-
-📄 See: :contentReference[oaicite:1]{index=1}
-
----
 
 #### StorageUnit (Abstract Class)
 Base class for storage entities:
