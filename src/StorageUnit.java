@@ -1,7 +1,17 @@
 /**
  * Abstract class representing a storage unit.
  * Parent class for Shelf.
+ *
+ * Preconditions:
+ * 1. id must not be null or empty.
+ * 2. volume must not be null.
+ *
+ * Postconditions:
+ * 1. id is initialized.
+ * 2. volume is initialized.
+ * 3. isFull is initialized as false.
  */
+
 public abstract class  StorageUnit {
     private String id;
     private Volume volume;
@@ -17,6 +27,13 @@ public abstract class  StorageUnit {
         return id;
     }
 
+    /*
+     * Preconditions:
+     * 1. id must not be null or empty.
+     *
+     * Postconditions:
+     * 1. id is updated.
+     */
     public void setId(String id) {
         this.id = id;
     }
@@ -25,6 +42,13 @@ public abstract class  StorageUnit {
         return volume;
     }
 
+    /*
+     * Preconditions:
+     * 1. volume must not be null.
+     *
+     * Postconditions:
+     * 1. volume is updated.
+     */
     public void setVolume(Volume volume) {
         this.volume = volume;
     }

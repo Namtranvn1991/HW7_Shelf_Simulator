@@ -1,4 +1,3 @@
-import javax.swing.plaf.PanelUI;
 
 /**
  * to get a volume of both shelves and items for representing 3D dimension.

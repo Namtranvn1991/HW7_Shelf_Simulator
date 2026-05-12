@@ -24,11 +24,20 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
      * @param item item to add
      * @return this shelf after adding item
      */
-    public Shelf addItem(Item item){
+    public Shelf addItem(Item item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Item cannot be null.");
+        }
+
+        if (!checkCanAddItem(item)) {
+            throw new IllegalArgumentException("Item cannot fit on this shelf.");
+        }
+
         items.add(item);
         item.setShelf(this);
         remainingWidth -= item.getVolume().getWidth();
         checkFull();
+
         return this;
     }
 
@@ -38,6 +47,10 @@ public class Shelf extends StorageUnit implements Comparable<Shelf> {
      * @param item item to remove
      */
     public void removeItem(Item item){
+        if (item == null) {
+            throw new IllegalArgumentException("Item cannot be null.");
+        }
+
         if (items.contains(item)){
             items.remove(item);
             item.setShelf(null);
