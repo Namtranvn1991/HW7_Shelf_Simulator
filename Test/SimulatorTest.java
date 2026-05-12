@@ -118,7 +118,7 @@ class SimulatorTest {
         Item item = new Item("I1", new Volume(20, 10, 10));
         simulator.addItem(item);
 
-        Shelf foundShelf = simulator.findShelf("I1");
+        Shelf foundShelf = simulator.findShelfOfItem("I1");
 
         assertEquals(shelf, foundShelf);
     }
@@ -126,6 +126,6 @@ class SimulatorTest {
     @Test
     void testFindShelfItemNotFound() {
         setUp();
-        assertNull(simulator.findShelf("UNKNOWN"));
+        assertNull(simulator.findShelfOfItem("UNKNOWN"));
     }
 }

@@ -72,10 +72,19 @@ public class Simulator {
         return null;
     }
 
-    public Shelf findShelf(String itemId) {
+    public Shelf findShelfOfItem(String itemId) {
         Item item = findItem(itemId);
         if (item == null) return null;
         return item.getShelf();
+    }
+
+    public Shelf findShel(String shelfId) {
+        for (Shelf shelf: storage.allShelves){
+            if(shelf.getId().equals(shelfId)){
+                return shelf;
+            }
+        }
+        return null;
     }
 
     public void displayAllShelves() {
@@ -131,6 +140,12 @@ public class Simulator {
                     System.out.print("Enter Shelf ID: ");
                     String shelfId = scanner.nextLine().trim();
 
+                    Shelf shelfCheck = findShel(shelfId);
+                    if (shelfCheck != null) {
+                        System.out.println("Already have shelf with ID: " + shelfId);
+                        continue;
+                    }
+
                     System.out.print("Enter height: ");
                     double h = Double.parseDouble(scanner.nextLine().trim());
                     System.out.print("Enter width: ");
@@ -150,6 +165,13 @@ public class Simulator {
                     // Add Item
                     System.out.print("Enter Item ID: ");
                     String itemId = scanner.nextLine().trim();
+
+                    Item itemCheck = findItem(itemId);
+                    if (itemCheck != null) {
+                        System.out.println("Already have item with ID: " + itemId);
+                        continue;
+                    }
+
 
                     System.out.print("Enter height: ");
                     double h = Double.parseDouble(scanner.nextLine().trim());
