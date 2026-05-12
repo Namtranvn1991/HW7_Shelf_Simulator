@@ -10,8 +10,8 @@ public class Simulator {
     public Storage storage;
 
     public void addShelf(Shelf shelf) {
-        Storage.allShelves.add(shelf);
-        Storage.availableShelves.add(shelf);
+        storage.allShelves.add(shelf);
+        storage.availableShelves.add(shelf);
     }
 
     // add item into available Shelf and update availableShelves
@@ -25,22 +25,22 @@ public class Simulator {
     public Shelf addItem(Item item) {
         List<Shelf> temp = new ArrayList<>();
 
-        while (!Storage.availableShelves.isEmpty()) {
-            Shelf shelf = Storage.availableShelves.poll();
+        while (!storage.availableShelves.isEmpty()) {
+            Shelf shelf = storage.availableShelves.poll();
 
             if (shelf.checkCanAddItem(item)) {
                 Shelf shelfCanAdd = shelf.addItem(item);
                 if (!shelf.isFull()) {
-                    Storage.availableShelves.add(shelf);
+                    storage.availableShelves.add(shelf);
                 }
-                Storage.availableShelves.addAll(temp);
-                Storage.items.add(item);
+                storage.availableShelves.addAll(temp);
+                storage.items.add(item);
                 return shelfCanAdd;
             } else {
                 temp.add(shelf);
             }
         }
-        Storage.availableShelves.addAll(temp);
+        storage.availableShelves.addAll(temp);
         return null;
     }
 
@@ -50,20 +50,20 @@ public class Simulator {
 
         if (shelf == null) return null;
 
-        Storage.availableShelves.remove(shelf);
+        storage.availableShelves.remove(shelf);
 
         shelf.removeItem(item);
         if (!shelf.isFull()) {
-            Storage.availableShelves.add(shelf);
+            storage.availableShelves.add(shelf);
         }
-        Storage.items.remove(item);
+        storage.items.remove(item);
 
         return shelf;
     }
 
     //find item in shelves with id
     public Item findItem(String itemId) {
-        for (Item item: Storage.items){
+        for (Item item: storage.items){
             if(item.getItemId().equals(itemId)){
                 return item;
             }
@@ -78,14 +78,14 @@ public class Simulator {
     }
 
     public void displayAllShelves() {
-        for (Shelf shelf : Storage.allShelves) {
+        for (Shelf shelf : storage.allShelves) {
             shelf.displayShelfInfo();
             System.out.println();
         }
     }
 
     public void displayAllItems() {
-        for (Item item : Storage.items) {
+        for (Item item : storage.items) {
             System.out.println("Item ID: " + item.getItemId());
 
             if (item.getShelf() != null) {
@@ -96,5 +96,13 @@ public class Simulator {
 
             System.out.println();
         }
+    }
+
+    public void runSimulator(){
+
+    }
+
+    void main() {
+
     }
 }
