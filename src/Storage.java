@@ -18,4 +18,5 @@ public class Storage {
         allShelves.add(shelf);
         availableShelves.add(shelf);
     }
+
 }

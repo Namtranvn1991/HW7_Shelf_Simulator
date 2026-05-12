@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Simulation controller.
@@ -99,10 +100,114 @@ public class Simulator {
     }
 
     public void runSimulator(){
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
+        System.out.println("=== SHELF SIMULATOR ===");
+
+        while (running) {
+            System.out.println("\n--- MENU ---");
+            System.out.println("1. Add Shelf");
+            System.out.println("2. Add Item");
+            System.out.println("3. Remove Item");
+            System.out.println("4. Search Item");
+            System.out.println("5. Display All Shelves");
+            System.out.println("6. Display All Items");
+            System.out.println("0. Exit");
+            System.out.print("Choose: ");
+
+            int choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
+
+            switch (choice) {
+                case 1 -> {
+                    // Add Shelf
+                    System.out.print("Enter Shelf ID: ");
+                    String shelfId = scanner.nextLine().trim();
+
+                    System.out.print("Enter height: ");
+                    double h = Double.parseDouble(scanner.nextLine().trim());
+                    System.out.print("Enter width: ");
+                    double w = Double.parseDouble(scanner.nextLine().trim());
+                    System.out.print("Enter depth: ");
+                    double d = Double.parseDouble(scanner.nextLine().trim());
+
+                    System.out.print("Enter max items capacity: ");
+                    int capacity = Integer.parseInt(scanner.nextLine().trim());
+
+                    Shelf shelf = new Shelf(shelfId, new Volume(h, w, d), capacity);
+                    addShelf(shelf);
+                    System.out.println("Shelf '" + shelfId + "' added successfully.");
+                }
+
+                case 2 -> {
+                    // Add Item
+                    System.out.print("Enter Item ID: ");
+                    String itemId = scanner.nextLine().trim();
+
+                    System.out.print("Enter height: ");
+                    double h = Double.parseDouble(scanner.nextLine().trim());
+                    System.out.print("Enter width: ");
+                    double w = Double.parseDouble(scanner.nextLine().trim());
+                    System.out.print("Enter depth: ");
+                    double d = Double.parseDouble(scanner.nextLine().trim());
+
+                    Item item = new Item(itemId, new Volume(h, w, d));
+                    Shelf placed = addItem(item);
+                    if (placed != null) {
+                        System.out.println("Item '" + itemId + "' placed on shelf: " + item.getShelf().getId());
+                    } else {
+                        System.out.println("No available shelf fits item '" + itemId + "'.");
+                    }
+                }
+
+                case 3 -> {
+                    // Remove Item
+                    System.out.print("Enter Item ID to remove: ");
+                    String itemId = scanner.nextLine().trim();
+                    Item item = findItem(itemId);
+                    Shelf shelf = removeItem(item);
+                    if (shelf != null) {
+                        System.out.println("Item '" + itemId + "' removed.");
+                    } else {
+                        System.out.println("Item '" + itemId + "' not found.");
+                    }
+                }
+
+                case 4 -> {
+                    // Search Item
+                    System.out.print("Enter Item ID to search: ");
+                    String itemId = scanner.nextLine().trim();
+                    Item found = findItem(itemId);
+                    if (found != null) {
+                        System.out.println("Found: " + found);
+                    } else {
+                        System.out.println("Item '" + itemId + "' not found.");
+                    }
+                }
+
+                case 5 -> displayAllShelves();
+
+                case 6 -> displayAllItems();
+
+                case 0 -> {
+                    running = false;
+                    System.out.println("Exiting simulator. Goodbye!");
+                }
+
+                default -> System.out.println("Invalid option. Try again.");
+            }
+        }
+
+        scanner.close();
     }
 
     void main() {
-
+        runSimulator();
     }
 }
