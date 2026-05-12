@@ -79,4 +79,9 @@ public class Volume {
     public double getBottomArea(){
         return depth * width;
     }
+
+    @Override
+    public String toString() {
+        return height + "-" + width + "-" + depth;
+    }
 }

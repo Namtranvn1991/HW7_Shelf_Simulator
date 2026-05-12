@@ -30,4 +30,9 @@ public class Item {
     public void setShelf(Shelf shelf) {
         this.shelf = shelf;
     }
+
+    @Override
+    public String toString() {
+        return "Item ID: " + getItemId() + "-" + "Volume:" + volume.toString();
+    }
 }
