@@ -7,13 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SimulatorTest {
     private Simulator simulator;
+    private Storage storage;
 
 
     void setUp() {
-        Storage.allShelves = new ArrayList<>();
-        Storage.availableShelves = new PriorityQueue<>();
-        Storage.items = new ArrayList<>();
-
+        storage = new Storage();
+        storage.allShelves = new ArrayList<>();
+        storage.availableShelves = new PriorityQueue<>();
+        storage.items = new ArrayList<>();
         simulator = new Simulator();
     }
 
@@ -24,8 +25,8 @@ class SimulatorTest {
 
         simulator.addShelf(shelf);
 
-        assertTrue(Storage.allShelves.contains(shelf));
-        assertTrue(Storage.availableShelves.contains(shelf));
+        assertTrue(storage.allShelves.contains(shelf));
+        assertTrue(storage.availableShelves.contains(shelf));
     }
 
     @Test
@@ -41,7 +42,7 @@ class SimulatorTest {
         assertNotNull(result);
         assertEquals(shelf, result);
         assertEquals(shelf, item.getShelf());
-        assertTrue(Storage.items.contains(item));
+        assertTrue(storage.items.contains(item));
     }
 
     @Test
@@ -56,7 +57,7 @@ class SimulatorTest {
 
         assertNull(result);
         assertNull(item.getShelf());
-        assertFalse(Storage.items.contains(item));
+        assertFalse(storage.items.contains(item));
     }
 
     @Test
@@ -72,7 +73,7 @@ class SimulatorTest {
 
         assertEquals(shelf, result);
         assertNull(item.getShelf());
-        assertFalse(Storage.items.contains(item));
+        assertFalse(storage.items.contains(item));
     }
 
     @Test
