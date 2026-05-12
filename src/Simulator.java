@@ -100,6 +100,7 @@ public class Simulator {
     }
 
     public void runSimulator(){
+        storage = new Storage();
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
