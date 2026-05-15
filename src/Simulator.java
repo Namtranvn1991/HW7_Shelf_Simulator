@@ -46,14 +46,21 @@ public class Simulator {
     }
 
     // remove item and update availableShelves
-    public Shelf removeItem(Item item) {
-        Shelf shelf = item.getShelf();
+    public Shelf removeItem(Item item) throws ShelfSimulatorException {
+        if (item == null) {
+            throw new IllegalArgumentException("Item cannot be null.");
+        }
 
-        if (shelf == null) return null;
+        Shelf shelf = item.getShelf();
+        if (shelf == null) {
+            throw new ShelfSimulatorException(
+                    ShelfSimulatorException.ErrorCode.ITEM_NOT_ON_SHELF,
+                    "Item '" + item.getItemId() + "' is not stored on any shelf.");
+        }
 
         storage.availableShelves.remove(shelf);
-
         shelf.removeItem(item);
+
         if (!shelf.isFull()) {
             storage.availableShelves.add(shelf);
         }

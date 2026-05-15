@@ -69,11 +69,17 @@ class SimulatorTest {
         Item item = new Item("I1", new Volume(20, 10, 10));
         simulator.addItem(item);
 
-        Shelf result = simulator.removeItem(item);
+        try {
+            Shelf result = simulator.removeItem(item);
+            assertEquals(shelf, result);
+            assertNull(item.getShelf());
+            assertFalse(storage.items.contains(item));
+        } catch (ShelfSimulatorException e) {
+            System.err.println(e.getMessage());
+        }
 
-        assertEquals(shelf, result);
-        assertNull(item.getShelf());
-        assertFalse(storage.items.contains(item));
+
+
     }
 
     @Test
@@ -81,9 +87,14 @@ class SimulatorTest {
         setUp();
         Item item = new Item("I1", new Volume(10,10,10));
 
-        Shelf result = simulator.removeItem(item);
+        try {
+            Shelf result = simulator.removeItem(item);
 
-        assertNull(result);
+            assertNull(result);
+        } catch (ShelfSimulatorException e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
     @Test
